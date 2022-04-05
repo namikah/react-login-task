@@ -1,8 +1,11 @@
 import React from 'react'
+import Banner from './layouts/banner/Banner'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div className='container'>
+       <Banner title={"Home"}/>
+    </div>
   )
 }
 

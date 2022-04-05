@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { productService } from "../API/services/productService";
 
 const product = {
   name: "",
@@ -13,17 +13,17 @@ const product = {
 
 function CreateProducts() {
   const [products, setProducts] = useState(product);
-  const {push} = useHistory();
+  const { push } = useHistory();
 
   const postData = useCallback(() => {
-      axios.post("https://624ad9e1fd7e30c51c128ec3.mockapi.io/api/v1/products", products).then(()=>{
-        push({
-            pathname: '/products',
-            search: '',
-            state: true 
-        });
-      })
-  }, [products]);
+    productService.postProducts(products).then(() => {
+      push({
+        pathname: "/products",
+        search: "",
+        state: true,
+      });
+    });
+  }, [products, push]);
 
   const createProduct = () => {
     postData();
@@ -31,10 +31,9 @@ function CreateProducts() {
 
   const getElementValues = (e) => {
     const { name, value } = e.target;
-    setProducts({...products, [name]: value });
+    setProducts({ ...products, [name]: value });
   };
 
-  console.log(products);
   return (
     <div className="container col-3 mt-5">
       <Form inline>
@@ -64,7 +63,7 @@ function CreateProducts() {
         </FormGroup>
         <FormGroup className="mb-2 me-sm-2 mb-sm-0">
           <Label className="me-sm-2" for="category">
-          Category
+            Category
           </Label>
           <Input
             id="category"
@@ -76,7 +75,7 @@ function CreateProducts() {
         </FormGroup>
         <FormGroup className="mb-2 me-sm-2 mb-sm-0">
           <Label className="me-sm-2" for="image">
-          Image
+            Image
           </Label>
           <Input
             id="image"
@@ -88,7 +87,7 @@ function CreateProducts() {
         </FormGroup>
         <FormGroup className="mb-2 me-sm-2 mb-sm-0">
           <Label className="me-sm-2" for="color">
-          Color
+            Color
           </Label>
           <Input
             id="color"
@@ -98,7 +97,9 @@ function CreateProducts() {
             onChange={getElementValues}
           />
         </FormGroup>
-        <Button onClick={createProduct} className="mt-4">Submit</Button>
+        <Button onClick={createProduct} className="mt-4">
+          Create
+        </Button>
       </Form>
     </div>
   );

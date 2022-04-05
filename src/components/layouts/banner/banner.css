@@ -1,7 +1,7 @@
 .panel{
-    background-image: url("https://picsum.photos/id/456/1200/600");
+    background-image: url("https://cdn.pixabay.com/photo/2015/10/29/14/38/web-1012467_960_720.jpg");
     background-size: cover;
-    height: 300px;
+    height: 250px;
     position: relative;
 }
 

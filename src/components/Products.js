@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
@@ -7,12 +6,13 @@ import {
   Button,
   Card,
   CardBody,
-  CardGroup,
   CardImg,
   CardSubtitle,
   CardText,
   CardTitle,
 } from "reactstrap";
+import { productService } from "../API/services/productService";
+import Banner from "./layouts/banner/Banner";
 
 function Products() {
   const { state } = useLocation();
@@ -20,11 +20,9 @@ function Products() {
   const { push } = useHistory();
 
   const getData = useCallback(() => {
-    axios
-      .get("https://624ad9e1fd7e30c51c128ec3.mockapi.io/api/v1/products")
-      .then((res) => {
-        setProductsData(res.data);
-      });
+    productService.getProducts().then((res) => {
+      setProductsData(res.data);
+    });
   }, []);
 
   useEffect(() => {
@@ -40,17 +38,17 @@ function Products() {
     });
   };
 
+  console.log(state);
   if (!state) return <Redirect to={"/login"} />;
   return (
-    <div>
-      <div className="text-end">
-        <Button onClick={() => push("/createProducts")} className="m-2">
-          Create
-        </Button>
-      </div>
-      <CardGroup className="gap-3 container mt-5">
+    <div className="container">
+      <Banner title={"Products"}/>
+      <div className="mt-5 mb-5 row justify-content-center">
+          <Button onClick={() => push("/createProducts")} className="mb-2">
+            Create
+          </Button>
         {productsData?.map(({ id, name, price, category, image, color }) => (
-          <Card key={id}>
+          <Card key={id} className="col-3 p-3">
             <CardImg alt="Card cap" src={image} top width="100%" />
             <CardBody>
               <CardTitle tag="h5">{name}</CardTitle>
@@ -63,12 +61,12 @@ function Products() {
                 id={id}
                 onClick={handleClickDetail}
               >
-                Button
+                read more
               </Button>
             </CardBody>
           </Card>
         ))}
-      </CardGroup>
+      </div>
     </div>
   );
 }

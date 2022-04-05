@@ -2,7 +2,7 @@ import React from 'react'
 
 function Error() {
   return (
-    <div>Something Error</div>
+    <div className='text-center' style={{color:"red"}}>Something Error</div>
   )
 }
 
