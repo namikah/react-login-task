@@ -8,6 +8,7 @@ import Products from "./components/Products";
 import Login from "./components/Login";
 import CreateProducts from "./components/CreateProducts";
 import { Redirect } from "react-router-dom";
+import Footer from "./components/layouts/footer/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path={"/createProducts"} exact component={CreateProducts}></Route>
         <Redirect to={"/error"}/>
       </Switch>
+      <Footer/>
     </div>
   );
 }

@@ -38,7 +38,6 @@ function Products() {
     });
   };
 
-  console.log(state);
   if (!state) return <Redirect to={"/login"} />;
   return (
     <div className="container">
