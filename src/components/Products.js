@@ -43,6 +43,11 @@ function Products() {
   if (!state) return <Redirect to={"/login"} />;
   return (
     <div>
+      <div className="text-end">
+        <Button onClick={() => push("/createProducts")} className="m-2">
+          Create
+        </Button>
+      </div>
       <CardGroup className="gap-3 container mt-5">
         {productsData?.map(({ id, name, price, category, image, color }) => (
           <Card key={id}>
